@@ -5,6 +5,8 @@ using UnityEngine;
 public class DiceRollingSystem : MonoBehaviour
 {
     public GameObject[] diceFaces;
+    public int randomInteger = 0;
+    public PlayerSystem playerSystem;
 
     private void Start()
     {
@@ -17,17 +19,21 @@ public class DiceRollingSystem : MonoBehaviour
 
     public void Roll()
     {
-        int randomInteger = Random.Range(0, 6);
+        int randomIntegerIndex = Random.Range(0, 6);
+        randomInteger = randomIntegerIndex += 1;
         Debug.Log(randomInteger);
         for (int i = 0; i < 6; i++)
         {
-            if (i == randomInteger)
+            if (i == randomInteger - 1)
             {
                 diceFaces[i].SetActive(true);
-            } else {
+            }
+            else
+            {
                 diceFaces[i].SetActive(false);
             }
         }
+        playerSystem.OnDiceRolled(randomInteger);
 
     }
 }
